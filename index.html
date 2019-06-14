@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    
+</body>
+
+</html>
+<script>
+
+    let data = {
+        dataDetail: {
+            jsonData:
+                [{
+                    buttonList: [
+                        [{
+                            big: '100',
+                            small: '0'
+                        }, {
+                            big: '99',
+                            small: '1'
+                        }],
+                        [{
+                            big: '100',
+                            small: '0'
+                        }, {
+                            big: '99',
+                            small: '1'
+                        }]
+                    ]
+                }]
+        }
+    }
+    dataInsert = function (data, str) {
+        const arr = str.replace(/\[(\w+)\]/g, '.$1').split('.');  //将数组'[n]'替换成'.n'并截取'.'
+        let handleData = data;
+        for (let item of arr) {
+            if (handleData.hasOwnProperty(item)) {
+                handleData = handleData[item];
+            } else {
+                handleData = null;
+                break;
+            }
+        }
+        return handleData;
+    }
+    console.log(dataInsert(data, 'dataDetail.jsonData[0].buttonList[1][0].big'));
+
+    Object.prototype.getProperty = dataInsert;  //绑定原型
+     
+    
+    console.log(data.getProperty(data, 'dataDetail.jsonData[0].buttonList[1][0].big'))
+
+/*
+1、截取小数点
+2、截取中括号里的数字   [n]
+*/
+
+</script>
